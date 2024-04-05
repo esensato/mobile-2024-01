@@ -8,17 +8,8 @@
 - Componentes visuais do React Native são compilados nativamente para as respectivas plataformas (iOS, Android, etc...)
 - Lógica de negócio permanece em *JavaScript*
 
-### Configuração do Ambiente
-
-- [Instalação CLI - Expo](https://reactnative.dev/docs/environment-setup):
-  - `npm install --location=global --loglevel=error expo-cli`
-  - Caso não dê certo, tentar com `npm install -g expo-cli`
-  - Obs **Mac**:
-    - `sudo npm install --location=global --loglevel=error expo-cli`
 ### Criação do Projeto
-- Criar o projeto utilizando o CLI [Expo](https://expo.dev/)
-- `expo init ControleGastos`
-- Escolher blank como modelo (para Mac `sudo npm install`
+- Criar o projeto (`npx create-expo-app ControleGastos`)
     ```
     cd ControleGastos
     npm install
