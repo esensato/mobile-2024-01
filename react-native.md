@@ -12,7 +12,6 @@
 - Criar o projeto (`npx create-expo-app ControleGastos`)
     ```
     cd ControleGastos
-    npm install
     npm run android
     ```
 - Pasta `assets` pode ser utilizada para armazenar imagens utilizadas pelo app
