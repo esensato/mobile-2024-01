@@ -187,6 +187,18 @@
     console.log(descricaoGasto);
   }
   ```
+- Para configurar margens, altura, etc... deve-se colocar o botão dentro de uma `<View>`
+  ```javascript
+  <View style={[{ width: "90%", margin: 2, backgroundColor: "red" }]}>
+    <Button title='Incrementar' onPress={incrementarValor} />
+  </View>
+  ```
+- Outra opção é utilizar o `<TouchableOpacity>`
+  ```javascript
+  <TouchableOpacity style={{ backgroundColor: "#ABAB", height: 50 }}>
+      <Text>Clique Aqui</Text>
+  </TouchableOpacity>
+  ```
 ***
 #### Armazenar Gastos em Uma Lista
 - **Nota:** como concatenar *arrays* em *Javascript* utilizando **spread** (`...`)
