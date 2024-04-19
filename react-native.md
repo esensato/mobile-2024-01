@@ -366,6 +366,48 @@
     }
     ```
 ***
+#### FlatList com Drag and Drop
+- Instalar o pacote `npm install --save react-native-draglist` - [react-native-draglist](https://github.com/fivecar/react-native-draglist)
+- Importar o componente `import DragList, { DragListRenderItemInfo } from 'react-native-draglist';`
+- Criar uma função para formatar os itens da lista
+    ```javascript
+    const renderItem = (info) => {
+      const { item, onDragStart, onDragEnd, isActive } = info;
+  
+      return (
+        <TouchableOpacity
+          style={{ padding: 10, backgroundColor: "#CACA" }}
+          key={item}
+          onPressIn={onDragStart}
+          onPressOut={onDragEnd}>
+          <Text>{item.descricao}</Text>
+        </TouchableOpacity>
+      );
+    }
+    ```
+- Criar uma função para reorganizar os componentes da lista quando os itens forem reposicionados
+    ```javascript
+    const onReordered = async (fromIndex, toIndex) => {
+    
+      console.log(fromIndex, toIndex)
+      const copy = [...gastos]; // Don't modify react data in-place
+      const removed = copy.splice(fromIndex, 1);
+    
+      copy.splice(toIndex, 0, removed[0]); // Now insert at the new pos
+      addGasto(copy);
+    }
+    ```
+- Implementar o componente `DragList`
+    ```html
+    <DragList
+      data={gastos}
+      keyExtractor={(item) => item.id}
+      onReordered={onReordered}
+      renderItem={renderItem}
+    />
+    ```
+ 
+***
 #### Funções como Componentes React
 - A função `renderGasto` deve ter o nome trocado para `RenderGasto`
 - Os parâmetros devem ser encapsulados em um único parâmetro `props`
