@@ -4,6 +4,7 @@ import { useState } from 'react';
 export default function App() {
   let label = "Valor: "
 
+
   // exemplo de uso do operador spread (...)
   let cores = ['azul', 'verde', 'vermelho']
   let novasCores = [...cores, 'branco']
