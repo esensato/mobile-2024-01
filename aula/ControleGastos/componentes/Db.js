@@ -34,13 +34,29 @@ export const inserir = (descricao, valor) => {
     });
 }
 
+export const excluir = (id) => {
+
+    const executar = (tx, resolve, reject) => {
+
+        tx.executeSql("DELETE FROM GASTOS WHERE id = ?",
+            [id],
+            (_, rs) => resolve(rs),
+            reject
+        );
+    }
+
+    return new Promise((resolve, reject) => {
+        bcodados.transaction((tx) => executar(tx, resolve, reject), reject, resolve);
+    });
+}
+
 export const listar = async () => {
 
     const executar = (tx, resolve, reject) => {
 
         tx.executeSql('SELECT * FROM gastos',
             [],
-            (_, rs) => resolve(rs.rows),
+            (_, rs) => resolve(rs.rows._array),
             reject
         );
     }

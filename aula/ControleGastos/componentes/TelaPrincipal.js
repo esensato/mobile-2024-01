@@ -1,18 +1,41 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { View, StyleSheet, Modal, Text, TouchableOpacity } from "react-native"
 import { EntradaGasto } from "./EntradaGasto"
 import { ListaGasto } from "./ListaGasto"
-import { inserir, listar } from "./Db";
+import { inserir, listar, excluir } from "./Db";
+import axios from 'axios';
 
 let totalGastos = 0;
 
 export const TelaPrincipal = (props) => {
 
-    listar().then((rs) => console.log("OK", rs)).catch((err) => console.log(err));
-
     const [gastos, addGasto] = useState([])
     const [total, setTotal] = useState(totalGastos)
     const [exibirModal, setExibirModal] = useState(false)
+
+    // executa uma unica vez quando a interface é desenhada
+    useEffect(() => {
+
+        // lista gastos do endpoint
+        axios.get("https://controle-gastos.glitch.me/").then((resp) => {
+            console.log(resp.data)
+            let novoArray = [];
+            resp.data.forEach((gasto, idx) => {
+                novoArray.push({ id: 1000 + idx, descricao: gasto.descricao, valor: gasto.valor })
+            })
+            addGasto(novoArray);
+        })
+
+        // lita gastos do banco de dados
+        listar()
+            .then((rs) => {
+
+                console.log("Gastos BD: ", rs)
+                addGasto(...gastos, rs);
+
+            })
+            .catch((err) => console.log(err));
+    }, []);
 
     let removerGasto = (item) => {
         console.log('lista completa: ', gastos)
@@ -28,6 +51,11 @@ export const TelaPrincipal = (props) => {
         totalGastos = totalGastos - parseFloat(item.valor);
         setTotal(totalGastos);
         addGasto(novoGasto);
+
+        excluir(item.id)
+            .then((rs) => console.log("Gasto Excluido", rs))
+            .catch((err) => console.log(err))
+
     }
 
     let addGastoPress = (descricao, valor) => {
@@ -36,7 +64,13 @@ export const TelaPrincipal = (props) => {
         setTotal(totalGastos);
         addGasto(novoGasto);
 
-        inserir(descricao, valor).then((rs) => console.log("Gasto Inserido", rs)).catch((err) => console.log(err))
+        // insere gasto no banco de dados local (SQLite)
+        inserir(descricao, valor)
+            .then((rs) => console.log("Gasto Inserido id: ", rs.insertId))
+            .catch((err) => console.log(err))
+
+        // enviar gasto para o backend
+        axios.post('https://controle-gastos.glitch.me/', { descricao: descricao, valor: valor }).then((resp) => console.log(resp.status));
 
         if (totalGastos > 1000) {
             console.log('Total maior do que 1000!!!!');

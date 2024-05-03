@@ -9,7 +9,7 @@ export const ListaGasto = (props) => {
 
     return <View style={{ flex: 4, alignContent: 'flex-start' }}>
         <FlatList data={props.gastos}
-            renderItem={({ item }) => <ItemLista gasto={item} corBorda={props.corBorda} corFundo={props.corFundo} onPress={() => props.onPress(item)} />}
+            renderItem={({ item }) => <ItemLista navigate={props.navigate} gasto={item} corBorda={props.corBorda} corFundo={props.corFundo} onPress={() => props.onPress(item)} />}
             keyExtractor={item => item.id} />
     </View>
 }
