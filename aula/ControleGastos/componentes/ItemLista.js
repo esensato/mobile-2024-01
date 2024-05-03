@@ -3,7 +3,7 @@
 // props.gasto
 // gasto - gasto a ser exibido
 
-import { Image, Pressable, Text, View } from "react-native";
+import { Image, Pressable, Text, View, Button } from "react-native";
 
 // onPress - indica qual funcao será acionada para remover o item
 export const ItemLista = (props) => {
@@ -17,6 +17,7 @@ export const ItemLista = (props) => {
             <Image source={imagemMoeda} style={{ width: 20, height: 30, flex: 1 }} />
             <Text style={{ flex: 5, padding: 5 }}>{props.gasto.descricao}</Text>
             <Text style={{ flex: 4, padding: 5 }}>{props.gasto.valor}</Text>
+            <Button title="..." onPress={() => props.navigate.navigate("Detalhes", { descricao: props.gasto.descricao, valor: props.gasto.valor })} />
         </View>
     </Pressable>;
 }
