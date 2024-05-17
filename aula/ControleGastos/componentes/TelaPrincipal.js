@@ -26,7 +26,7 @@ export const TelaPrincipal = (props) => {
             addGasto(novoArray);
         })
 
-        // lita gastos do banco de dados
+        // lista gastos do banco de dados
         listar()
             .then((rs) => {
 
