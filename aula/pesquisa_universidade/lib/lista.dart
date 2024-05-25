@@ -20,8 +20,8 @@ class Lista extends StatelessWidget {
               shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(6))),
               key: Key(id.toString()),
               tileColor: Colors.black12,
-              title: Text(itens[id]),
-              subtitle: Text(itens[id]),
+              title: Text(itens[id]['name']),
+              subtitle: Text(itens[id]['web_pages'][0]),
               onTap: (){
                 callback(itens[id]);
               },
